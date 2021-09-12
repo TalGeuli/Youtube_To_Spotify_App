@@ -5,7 +5,7 @@ class SpotifyClient(object):
     def __init__(self, _api_token):
         self.api_token=_api_token
 
-    def search_song(self,artist, track):
+    def search_song(self, artist, track):
         query = urllib.parse.quote(f'{artist} {track}')
         url = f"http://api.spotify.com/v1/search?q={query}&type=track"
         response = requests.get(
@@ -17,7 +17,7 @@ class SpotifyClient(object):
         )
         response_json = response.json()  # create the response as a json file
 
-        results = response_json['tacks']['item']
+        results = response_json['tracks']['items']
         if results:
             # assume the first track in the list is the song we want
             return results[0]['id']
@@ -28,6 +28,7 @@ class SpotifyClient(object):
     def add_song(self, song_id):
         url = "https://api.spotify.com/v1/me/tracks"
         response = requests.put(
+            url,
             json={
                 "ids": [song_id]
             },

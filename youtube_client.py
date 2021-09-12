@@ -43,13 +43,13 @@ class YouTubeClient(object):
     def get_playlists(self):
         request = self.youtube_client.playlists().list(
             part="id, snippet",  # what data we what from each playlist
-            maxResult=50,  # maximum of 50 playlists
+            maxResults=50,  # maximum of 50 playlists
             mine=True  # make our own playlist
         )
         response = request.execute()
 
         # creat a list of playlists
-        playlists = [Playlist(item['id'], item['snippet']['title']) for item in response['item']]
+        playlists = [Playlist(item['id'], item['snippet']['title']) for item in response['items']]
 
         return playlists
 
@@ -63,7 +63,7 @@ class YouTubeClient(object):
         )
         response = request.execute()
 
-        for item in response['item']:
+        for item in response['items']:
             video_id = item['snippet']['resourceId']['videoId']
             artist, track = self.get_artist_and_track_from_video(video_id)
             if artist and track:
