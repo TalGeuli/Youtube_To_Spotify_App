@@ -29,7 +29,7 @@ def search_and_add_songs_to_spotify(spotify_client, songs):
                print (f"Added {song.artist}")
 
 
-# 1. Get the list of playlist from youtube.
+# 1. Get the list of playlists from youtube.
 # 2. Choose the playlist we what to get the videos from
 # 3. Get the songs information.
 # 4. Search and add the songs to spotify.
