@@ -3,15 +3,6 @@ import os
 from youtube_client import YouTubeClient
 from spotify_client import SpotifyClient
 
-# Ask witch playlist we want to get music videos from
-def choose_playlist_from_youtube(youtube_client, spotify_client, playlists):
-    for index, playlist in enumerate(playlists):
-        print(f"{index}: {playlist.title}")
-    choice = int(input("Enter your choice: "))
-    chosen_playlist = playlists[choice]
-    print(f"You selected: {chosen_playlist.title}")
-    return chosen_playlist
-
 # For each video in the playlist, get the song information from YouTube
 def get_songs_information(youtube_client, chosen_playlist):
     songs = youtube_client.get_videos_from_playlist(chosen_playlist.id)
@@ -38,7 +29,7 @@ def run():
     youtube_client = YouTubeClient('./creds/client_secret.json')
     spotify_client = SpotifyClient(spotyfy_token)
     playlists = youtube_client.get_playlists()
-    chosen_playlist = choose_playlist_from_youtube(youtube_client, spotify_client, playlists)
+    chosen_playlist = youtube_client.choose_playlist_from_youtube(playlists)
     songs_info = get_songs_information(youtube_client,chosen_playlist)
     search_and_add_songs_to_spotify (spotify_client, songs_info)
      

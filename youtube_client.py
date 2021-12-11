@@ -38,7 +38,6 @@ class YouTubeClient(object):
 
         self.youtube_client = youtube_client
 
-    # TODO: make more clear comments after finishing the code.
     # goal: return a list of playlists that we would like to convert to a spotify playlists
     def get_playlists(self):
         request = self.youtube_client.playlists().list(
@@ -53,7 +52,6 @@ class YouTubeClient(object):
 
         return playlists
 
-    # TODO: add comments
     # goal: to extract the videos from the playlist
     def get_videos_from_playlist(self, playlist_id):
         songs = []
@@ -71,7 +69,6 @@ class YouTubeClient(object):
 
         return songs
 
-    # TODO: make more clear comments after finishing the code.
     # goal: to extract the artist and track from the video so we could use them later to find the same video in spotify
     def get_artist_and_track_from_video(self, video_id):
         youtube_url = f"https://www.youtube.com/watch?v={video_id}"
@@ -84,5 +81,14 @@ class YouTubeClient(object):
         track = video['track']
 
         return artist, track
+
+    # Ask witch playlist we want to get music videos from
+    def choose_playlist_from_youtube (self, playlists):
+        for index, playlist in enumerate(playlists):
+            print(f"{index}: {playlist.title}")
+        choice = int(input("Enter your choice: "))
+        chosen_playlist = playlists[choice]
+        print(f"You selected: {chosen_playlist.title}")
+        return chosen_playlist
 
 
